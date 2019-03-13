@@ -13,6 +13,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Flatten
 from keras.utils import np_utils
 from keras.layers import Conv2D, MaxPooling2D
+from keras.layers.normalization import BatchNormalization
 
 
 (X_trein, y_trein), (X_test,y_test) =mnist.load_data()
@@ -37,9 +38,14 @@ classe_trein = np_utils.to_categorical(y_trein,10)
 classe_test = np_utils.to_categorical(y_test,10)
 
 classifier = Sequential()
+
+#CONVOLUCAO
 #Conv2D(num_filtros, tam_kernels, formato_entrada, func_ativacao),
 #recomendavel 64 kernels como filtros (128,256,...)
 classifier.add(Conv2D(32,(3,3), input_shape=(28,28,1), activation='relu'))
+
+#EXTRA1: BATCH NORMALIZATION
+classifier.add(BatchNormalization())
 
 #POOLING
 #percorre caracteristicas em 2 por 2
