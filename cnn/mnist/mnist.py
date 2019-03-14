@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 from keras.datasets import mnist
 from keras.models import Sequential
-from keras.layers import Dense, Flatten
+from keras.layers import Dense, Flatten, Dropout
 from keras.utils import np_utils
 from keras.layers import Conv2D, MaxPooling2D
 from keras.layers.normalization import BatchNormalization
@@ -39,7 +39,7 @@ classe_test = np_utils.to_categorical(y_test,10)
 
 classifier = Sequential()
 
-#CONVOLUCAO
+#CONVOLUCAO - 1 camada
 #Conv2D(num_filtros, tam_kernels, formato_entrada, func_ativacao),
 #recomendavel 64 kernels como filtros (128,256,...)
 classifier.add(Conv2D(32,(3,3), input_shape=(28,28,1), activation='relu'))
@@ -51,12 +51,28 @@ classifier.add(BatchNormalization())
 #percorre caracteristicas em 2 por 2
 classifier.add(MaxPooling2D(pool_size =(2,2)))
 
-#FLATTENING - nenhum parametro
+#FLATTENING - nenhum parametro - uma vez no final
+#classifier.add(Flatten())
+
+#CONVOULACAO - 2 CAMADA
+classifier.add(Conv2D(32,(3,3),activation='relu'))
+classifier.add(BatchNormalization())
+classifier.add(MaxPooling2D(pool_size=(2,2)))
 classifier.add(Flatten())
 
-#REDE NEURAL DENSA
+
+#REDE NEURAL DENSA - camada 1
 #Dense(num_neuros, activation_func, )
 classifier.add(Dense(units=128, activation='relu'))
+
+#EXTRA 2 - drop out para zerar entradas evitando overfitting
+classifier.add(Dropout(0.2))
+
+#densa camada - 2
+classifier.add(Dense(units=128, activation='relu'))
+classifier.add(Dropout(0.2))
+
+
 #Saida - 10 saidas com softmaz
 classifier.add(Dense(units = 10,activation='softmax'))
 
