@@ -50,3 +50,4 @@ for indice_treinamento, indice_teste in kfold.split(previsores,
 
 #media = results.mean()
 media = sum(results)/len(results)
+
