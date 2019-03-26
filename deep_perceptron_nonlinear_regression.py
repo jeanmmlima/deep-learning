@@ -69,7 +69,7 @@ model.compile(loss='mse', optimizer='adam', metrics=["accuracy"])
  
 # Training model with train data. Fixed random seed:
 numpy.random.seed(3)
-model.fit(X_train, y_train, nb_epoch=256, batch_size=2, verbose=2)
+model.fit(X_train, y_train, nb_epoch=256, batch_size=2, verbose=2, validation_split=0.1)
 
 predicted = model.predict(X_test)
  
