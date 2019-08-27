@@ -23,12 +23,12 @@ Y = np.power(X,2)
 X = X.reshape(-1,1)
 
 #Normalization and preprocessing
-#norm = MinMaxScaler(feature_range=(0,1))
-#X = norm.fit_transform(X)
+norm = MinMaxScaler(feature_range=(0,1))
+X = norm.fit_transform(X)
 
 X_train, X_test, y_train, y_test = train_test_split(X,Y,test_size=0.2,random_state=0)
 
-svr_rbf = SVR(kernel='rbf', C=100,gamma=0.01,epsilon=.1)
+svr_rbf = SVR(kernel='rbf', C=10000000,gamma=0.13,epsilon=.04)
 svr_rbf.fit(X_train,y_train)
 
 y_pred = svr_rbf.predict(X_test)
