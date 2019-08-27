@@ -30,7 +30,7 @@ rbm.weights
 user1 = np.array([[1,1,0,1,0,0]])
 user2 = np.array([[0,0,0,1,1,0]])
 
-rbm.run_visible(user2)
+rbm.run_visible(user1)
 
 camada_escondida = np.array([[1,0]])
 recomendacao = rbm.run_hidden(camada_escondida)
