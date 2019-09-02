@@ -5,7 +5,7 @@ Created on Mon Sep  2 15:18:20 2019
 @author: Jean Mário
 """
 
-#Undercomplete AutoEncoders (AE)  for demensionality reduction
+#Undercomplete AutoEncoders (AE)  for demensionality reduction (i.e 3D to 2D)
 
 #if AE uses only linear activations and the cost function is the MSE,
 # it can se shown that it ents up performing a PCA
