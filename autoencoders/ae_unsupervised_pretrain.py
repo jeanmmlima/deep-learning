@@ -64,3 +64,52 @@ pretrain_saver = tf.train.Saver([weights1, weights2, biases1, biases2])
 saver = tf.train.Saver() # not shown in the book
 
 
+#Regular training
+
+n_epochs = 8
+batch_size = 150
+n_labeled_instances = 20000
+
+with tf.Session() as sess:
+    init.run()
+    for epoch in range(n_epochs):
+        n_batches = n_labeled_instances // batch_size
+        for iteration in range(n_batches):
+            print("\r{}%".format(100 * iteration // n_batches), end="")
+            sys.stdout.flush()
+            indices = np.random.permutation(n_labeled_instances)[:batch_size]
+            X_batch, y_batch = mnist.train.images[indices], mnist.train.labels[indices]
+            sess.run(training_op, feed_dict={X: X_batch, y: y_batch})
+        accuracy_val = accuracy.eval(feed_dict={X: X_batch, y: y_batch})
+        print("\r{}".format(epoch), "Train accuracy:", accuracy_val, end=" ")
+        saver.save(sess, "./my_model_supervised.ckpt")
+        accuracy_val = accuracy.eval(feed_dict={X: mnist.test.images, y: mnist.test.labels})
+        print("Test accuracy:", accuracy_val)
+    
+    
+#reusing the first two layers of the AE pretrained
+        
+n_epochs = 4
+batch_size = 150
+n_labeled_instances = 20000
+
+#training_op = optimizer.minimize(loss, var_list=[weights3, biases3])  # Freeze layers 1 and 2 (optional)
+
+with tf.Session() as sess:
+    init.run()
+    pretrain_saver.restore(sess, "./my_model_cache_frozen.ckpt")
+    for epoch in range(n_epochs):
+        n_batches = n_labeled_instances // batch_size
+        for iteration in range(n_batches):
+            print("\r{}%".format(100 * iteration // n_batches), end="")
+            sys.stdout.flush()
+            indices = np.random.permutation(n_labeled_instances)[:batch_size]
+            X_batch, y_batch = mnist.train.images[indices], mnist.train.labels[indices]
+            sess.run(training_op, feed_dict={X: X_batch, y: y_batch})
+        accuracy_val = accuracy.eval(feed_dict={X: X_batch, y: y_batch})
+        print("\r{}".format(epoch), "Train accuracy:", accuracy_val, end="\t")
+        saver.save(sess, "./my_model_supervised_pretrained.ckpt")
+        accuracy_val = accuracy.eval(feed_dict={X: mnist.test.images, y: mnist.test.labels})
+        print("Test accuracy:", accuracy_val)
+
+
