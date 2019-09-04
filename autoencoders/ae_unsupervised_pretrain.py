@@ -14,7 +14,20 @@ import sys
 import os
 
 #data
+def reset_graph(seed=42):
+    tf.reset_default_graph()
+    tf.set_random_seed(seed)
+    np.random.seed(seed)
+    
+
 mnist = input_data.read_data_sets("/tmp/data/")
+
+#Training one Autoencoder at a time in a single graph
+
+#phase 1 trains the bottom and top layer (ie. the first Autoencoder) 
+#and phase 2 trains the two middle layers (ie. the second Autoencoder).
+
+reset_graph()
 
 n_inputs = 28 * 28
 n_hidden1 = 300
