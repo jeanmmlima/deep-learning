@@ -79,7 +79,7 @@ saver = tf.train.Saver() # not shown in the book
 
 #Regular training
 
-n_epochs = 8
+n_epochs = 4
 batch_size = 150
 n_labeled_instances = 20000
 
