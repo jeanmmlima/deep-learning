@@ -40,3 +40,6 @@ with tf.Session() as sess:
 
 print(Y0_val) #output at t = 0
 print(Y1_val) #output at t = 1
+
+
+
