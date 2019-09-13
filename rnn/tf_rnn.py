@@ -104,7 +104,7 @@ with tf.Session() as sess:
     
 print(outputs_val)
     
-    
+
 
 
 
