@@ -71,7 +71,21 @@ plt.savefig('plotting-with-pandas.png')
 
 df.to_csv("foo.csv")
 
-tanks = pd.read_csv('data_tanks_quanser.csv')
+df_tanks = pd.read_csv('data_tanks_quanser.csv')
+#com tempo e indices 
+tanks_t = pd.DataFrame(df_tanks.values, index=df_tanks.index, columns=['t','L2','V'])
+
+#sem coluna do tempo
+tanks = tanks_t.iloc[:,1:3]
+tanks.plot()
+
+
+
+
+
+
+
+
 
 
 
